@@ -62,7 +62,14 @@ namespace CourseWork
 
         public CPUStatistic(CPU cpu)
         {
-            CurrentProcess = (ProcessStatistic)cpu.CurrentProcess;
+            if (cpu.CurrentProcess == null)
+            {
+                CurrentProcess = null;
+            }
+            else
+            {
+                CurrentProcess = new(cpu.CurrentProcess);
+            }
         }
 
         public static explicit operator CPUStatistic(CPU cpu)

@@ -62,7 +62,7 @@
             HorizontalContentAlignment="Center" 
             Margin="110,0,0,60" Content="Step" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Step_Click"/>
         <ListView Grid.Column="1" 
-                  d:ItemsSource="{d: }" 
+                  
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="3"
                   Margin="256,10,10,10">
