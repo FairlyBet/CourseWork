@@ -22,7 +22,7 @@ namespace CourseWork
             _terminatingProcesses = new();
         }
 
-        public void AddNewProcesses(in IEnumerable<Process> newProcesses)
+        public void AddNewProcesses(params Process[] newProcesses)
         {
             foreach (var item in newProcesses)
             {
@@ -32,7 +32,7 @@ namespace CourseWork
             }
         }
 
-        public void AddTerminatingProcesses(in IEnumerable<uint> terminatingProcesses)
+        public void AddTerminatingProcesses(params uint[] terminatingProcesses)
         {
             foreach (var item in terminatingProcesses)
             {
