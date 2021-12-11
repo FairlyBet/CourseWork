@@ -12,7 +12,9 @@
         ResizeMode="NoResize" 
         BorderThickness="0,0,0,0" 
         WindowStyle="SingleBorderWindow">
-    <Grid x:Name="MainGrid" RenderTransformOrigin="0.5,0.5" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    <Grid x:Name="MainGrid" 
+          RenderTransformOrigin="0.5,0.5" 
+          ScrollViewer.VerticalScrollBarVisibility="Disabled">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -59,7 +61,11 @@
             VerticalContentAlignment="Center" 
             HorizontalContentAlignment="Center" 
             Margin="110,0,0,60" Content="Step" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Step_Click"/>
-        <ListView Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2" Margin="256,10,10,10" Grid.RowSpan="3">
+        <ListView Grid.Column="1" 
+                  d:ItemsSource="{d: }" 
+                  Grid.ColumnSpan="2"
+                  Grid.RowSpan="3"
+                  Margin="256,10,10,10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -67,6 +73,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="box" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="283" Height="246" Grid.RowSpan="2"/>
+        <TextBox x:Name="box" 
+                 Grid.ColumnSpan="2" 
+                 HorizontalAlignment="Left" 
+                 Margin="10,10,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="TextBox" 
+                 VerticalAlignment="Top" 
+                 Width="283" 
+                 Height="246" 
+                 Grid.RowSpan="2"/>
     </Grid>
 </Window>

@@ -5,7 +5,7 @@ namespace CourseWork
 {
     public class TaskScheduler
     {
-        private uint _id;
+        private uint _idCount;
         private readonly TactGenerator _generator;
         private readonly Hardware _hardware;
         private readonly List<Process> _processes;
@@ -26,7 +26,7 @@ namespace CourseWork
         {
             foreach (var item in newProcesses)
             {
-                Process process = new(_id++, item.Name, item.Priority,
+                Process process = new(_idCount++, item.Name, item.Priority,
                     item.State, item.Performance, item.Size);
                 _newProcesses.Add(process);
             }
