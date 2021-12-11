@@ -5,6 +5,9 @@
         private readonly Hardware _hardware;
         private readonly TactGenerator _generator;
         private readonly TaskScheduler _scheduler;
+        private Statistic _statistic;
+
+        public Statistic Statistic => _statistic;
 
 
         public OS()
@@ -39,6 +42,19 @@
         public void UpdateSystemState()
         {
             _generator.Tick();
+            UpdateStatistic();
+        }
+
+        public void UpdateStatistic()
+        {
+            var cpus = new CPUStatistic[Config.CPUsCount];
+            for (int i = 0; i < cpus.Length; i++)
+            {
+                cpus[i] = new(_hardware.CPUs[i]);
+            }
+            var memory = _hardware.Memory.Blocks;
+            var processes = _scheduler.ProvideStatistic();
+            _statistic = new(processes, cpus, memory);
         }
 
         public void RaiseNewProcess(Process process)

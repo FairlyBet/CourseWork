@@ -5,12 +5,13 @@ namespace CourseWork
 {
     public class TaskScheduler
     {
-        private uint _idCount;
-        private readonly TactGenerator _generator;
         private readonly Hardware _hardware;
+        private readonly TactGenerator _generator;
         private readonly List<Process> _processes;
         private readonly List<Process> _newProcesses;
         private readonly List<uint> _terminatingProcesses;
+        private uint _idCount;
+        private int _tacts;
 
 
         public TaskScheduler(in Hardware hardware, in TactGenerator generator)
@@ -49,6 +50,7 @@ namespace CourseWork
             RaiseNewProcesses();
             TerminateProcesses();
             ScheduleProcesses();
+            OrderList();
         }
 
         private void ReleaseCPUs()
@@ -94,6 +96,26 @@ namespace CourseWork
                 p?.StartExecuting();
                 item.CurrentProcess = p;
             }
+        }
+
+        private void OrderList()
+        {
+            _tacts++;
+            if (_tacts == Config.OrderRate)
+            {
+                _processes.Sort(Process.Comparer);
+            }
+            _tacts %= Config.OrderRate;
+        }
+
+        public ProcessStatistic[] ProvideStatistic()
+        {
+            var result = new ProcessStatistic[_processes.Count];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = (ProcessStatistic)_processes[i];
+            }
+            return result;
         }
 
         public override string ToString()

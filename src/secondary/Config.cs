@@ -8,5 +8,6 @@
         public static readonly uint MaxProccesSize = MemorySize / 2;
         public static readonly int TickRate = 500;
         public static readonly int CPUsCount = 4;
+        public static readonly int OrderRate = 4;
     }
 }

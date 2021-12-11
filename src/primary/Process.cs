@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CourseWork
 {
     public class Process
     {
+        public static readonly IComparer<Process> Comparer = new PriorityComparer();
         private static int s_seed = 0;
-
+        
         public uint Id { get; }
 
         public string Name { get; }
@@ -60,7 +62,7 @@ namespace CourseWork
         {
             if (BurstTime < ExecutingTime)
             {
-                BurstTime++;   
+                BurstTime++;
             }
             if (BurstTime == ExecutingTime)
             {
@@ -98,6 +100,24 @@ namespace CourseWork
             return $"[{Name}, {Id}, {Size / 1_000_000}MB, {State}, {BurstTime}/{ExecutingTime}]";
         }
 
+
+
+        private class PriorityComparer : IComparer<Process>
+        {
+            public int Compare(Process? x, Process? y)
+            {
+                int result = 0;
+                if (x.Priority > y.Priority)
+                {
+                    result = 1;
+                }
+                if (x.Priority < y.Priority)
+                {
+                    result = -1;
+                }
+                return result;
+            }
+        }
 
         private static class ProccesNameGenerator
         {

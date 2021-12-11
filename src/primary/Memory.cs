@@ -8,6 +8,8 @@ namespace CourseWork
         private readonly uint _size;
         private readonly LinkedList<MemoryBlock> _blocks;
 
+        public MemoryBlock[] Blocks => _blocks.ToArray();
+
 
         public Memory(in uint size)
         {
