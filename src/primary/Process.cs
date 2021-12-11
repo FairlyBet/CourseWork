@@ -60,11 +60,11 @@ namespace CourseWork
         {
             if (BurstTime < ExecutingTime)
             {
-                BurstTime++;
-                if (BurstTime == ExecutingTime)
-                {
-                    State = ProcessState.Waiting;
-                }
+                BurstTime++;   
+            }
+            if (BurstTime == ExecutingTime)
+            {
+                State = ProcessState.Waiting;
             }
         }
 
@@ -124,10 +124,7 @@ namespace CourseWork
             public static string GenerateName()
             {
                 Random random = new(s_seed++);
-                string name = string.Empty;
-                name += Adjectives[random.Next() % Adjectives.Length];
-                name += " " + Nouns[random.Next() % Nouns.Length];
-                return name;
+                return Adjectives[random.Next() % Adjectives.Length] + " " + Nouns[random.Next() % Nouns.Length];
             }
         }
     }
