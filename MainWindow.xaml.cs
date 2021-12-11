@@ -8,14 +8,20 @@ namespace CourseWork
         private readonly OS _os;
         private bool _pause;
 
+
         public MainWindow()
         {
             InitializeComponent();
             _os = new OS();
+            _pause = true;
         }
 
         private async void AutoRun_Click(object sender, RoutedEventArgs e)
         {
+            if (!_pause)
+            {
+                return;
+            }
             _pause = false;
             while (!_pause)
             {
@@ -32,6 +38,10 @@ namespace CourseWork
 
         private void Step_Click(object sender, RoutedEventArgs e)
         {
+            if (!_pause)
+            {
+                return;
+            }
             _os.UpdateSystemState();
             box.Text = _os.ToString();
         }
