@@ -5,12 +5,15 @@ namespace CourseWork
 {
     public class TaskScheduler
     {
-        private uint _id;
-        private readonly TactGenerator _generator;
         private readonly Hardware _hardware;
+        private readonly TactGenerator _generator;
         private readonly List<Process> _processes;
         private readonly List<Process> _newProcesses;
         private readonly List<uint> _terminatingProcesses;
+        private readonly List<Process> _rejectedProcesses;
+        private readonly List<Process> _terminatedProcesses;
+        private uint _idCount;
+        private int _tacts;
 
 
         public TaskScheduler(in Hardware hardware, in TactGenerator generator)
@@ -20,19 +23,21 @@ namespace CourseWork
             _processes = new();
             _newProcesses = new();
             _terminatingProcesses = new();
+            _rejectedProcesses = new();
+            _terminatedProcesses = new();
         }
 
-        public void AddNewProcesses(in IEnumerable<Process> newProcesses)
+        public void AddNewProcesses(params Process[] newProcesses)
         {
             foreach (var item in newProcesses)
             {
-                Process process = new(_id++, item.Name, item.Priority,
+                Process process = new(_idCount++, item.Name, item.Priority,
                     item.State, item.Performance, item.Size);
                 _newProcesses.Add(process);
             }
         }
 
-        public void AddTerminatingProcesses(in IEnumerable<uint> terminatingProcesses)
+        public void AddTerminatingProcesses(params uint[] terminatingProcesses)
         {
             foreach (var item in terminatingProcesses)
             {
@@ -49,6 +54,7 @@ namespace CourseWork
             RaiseNewProcesses();
             TerminateProcesses();
             ScheduleProcesses();
+            OrderList();
         }
 
         private void ReleaseCPUs()
@@ -62,6 +68,8 @@ namespace CourseWork
 
         private void RaiseNewProcesses()
         {
+            var rejectedProcesses = _newProcesses.Where(x => !_hardware.Memory.TryAddProcces(x));
+            _rejectedProcesses.AddRange(rejectedProcesses);
             var raisedProcesses = _newProcesses.Where(x => _hardware.Memory.TryAddProcces(x));
             foreach (var item in raisedProcesses)
             {
@@ -80,7 +88,8 @@ namespace CourseWork
                 {
                     _hardware.Memory.DeleteProcess(process);
                     process.FinishProcess();
-                    _generator.OnTick -= process.UpdateState;   
+                    _generator.OnTick -= process.UpdateState;
+                    _terminatedProcesses.Add(process);
                     _processes.Remove(process);
                 }
             }
@@ -94,6 +103,35 @@ namespace CourseWork
                 p?.StartExecuting();
                 item.CurrentProcess = p;
             }
+        }
+
+        private void OrderList()
+        {
+            _tacts++;
+            if (_tacts == Config.OrderRate)
+            {
+                _processes.Sort(Process.Comparer);
+            }
+            _tacts %= Config.OrderRate;
+        }
+
+        public (ProcessStatistic[] processes, ProcessStatistic[] rejected, ProcessStatistic[] terminated) ProvideStatistic()
+        {
+            var processes = FormSatistic(_processes);
+            var rejected = FormSatistic(_rejectedProcesses);
+            var terminated = FormSatistic(_terminatedProcesses);
+            return (processes, rejected, terminated);
+        }
+
+        private static ProcessStatistic[] FormSatistic(IEnumerable<Process> source)
+        {
+            var result = new ProcessStatistic[source.Count()];
+            int i = 0;
+            foreach (var item in source)
+            {
+                result[i++] = new(item);
+            }
+            return result;
         }
 
         public override string ToString()

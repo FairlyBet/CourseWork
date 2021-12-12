@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CourseWork
 {
@@ -19,9 +20,9 @@ namespace CourseWork
             collection.CopyTo(_innerArray, 0);
         }
 
-        public ReadOnlyList(in ICollection<T> collection)
+        public ReadOnlyList(in IEnumerable<T> collection)
         {
-            _innerArray = new T[collection.Count];
+            _innerArray = new T[collection.Count()];
             int i = 0;
             foreach (var item in collection)
             {

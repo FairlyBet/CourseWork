@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CourseWork
 {
     public class Process
     {
+        public static readonly IComparer<Process> Comparer = new PriorityComparer();
         private static int s_seed = 0;
-
+        
         public uint Id { get; }
 
         public string Name { get; }
@@ -61,10 +63,10 @@ namespace CourseWork
             if (BurstTime < ExecutingTime)
             {
                 BurstTime++;
-                if (BurstTime == ExecutingTime)
-                {
-                    State = ProcessState.Waiting;
-                }
+            }
+            if (BurstTime == ExecutingTime)
+            {
+                State = ProcessState.Waiting;
             }
         }
 
@@ -99,6 +101,24 @@ namespace CourseWork
         }
 
 
+
+        private class PriorityComparer : IComparer<Process>
+        {
+            public int Compare(Process? x, Process? y)
+            {
+                int result = 0;
+                if (x.Priority > y.Priority)
+                {
+                    result = 1;
+                }
+                if (x.Priority < y.Priority)
+                {
+                    result = -1;
+                }
+                return result;
+            }
+        }
+
         private static class ProccesNameGenerator
         {
             public static readonly string[] Nouns =
@@ -124,10 +144,7 @@ namespace CourseWork
             public static string GenerateName()
             {
                 Random random = new(s_seed++);
-                string name = string.Empty;
-                name += Adjectives[random.Next() % Adjectives.Length];
-                name += " " + Nouns[random.Next() % Nouns.Length];
-                return name;
+                return Adjectives[random.Next() % Adjectives.Length] + " " + Nouns[random.Next() % Nouns.Length];
             }
         }
     }
