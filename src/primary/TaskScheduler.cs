@@ -68,9 +68,10 @@ namespace CourseWork
 
         private void RaiseNewProcesses()
         {
-            var rejectedProcesses = _newProcesses.Where(x => !_hardware.Memory.TryAddProcces(x));
+            _newProcesses.ForEach(x => _hardware.Memory.TryAddProcces(x));
+            var rejectedProcesses = _newProcesses.Where(x => x.Location == null);
             _rejectedProcesses.AddRange(rejectedProcesses);
-            var raisedProcesses = _newProcesses.Where(x => _hardware.Memory.TryAddProcces(x));
+            var raisedProcesses = _newProcesses.Where(x => x.Location != null);
             foreach (var item in raisedProcesses)
             {
                 _processes.Add(item);
