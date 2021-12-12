@@ -24,13 +24,13 @@ namespace CourseWork
                                .MaxBy(x => x.Size);
             if (block != null)
             {
-                OccupyBlock(process, block);
+                OccupyBlock(block, process);
                 return true;
             }
             return false;
         }
 
-        private void OccupyBlock(in Process process, in MemoryBlock block)
+        private void OccupyBlock(in MemoryBlock block, in Process process)
         {
             var node = _blocks.Find(block);
             MemoryBlock newBlock = new(BlockState.Occupied, block.Address, process.Size);
@@ -63,30 +63,30 @@ namespace CourseWork
             _blocks.Remove(node);
         }
 
-        private LinkedListNode<MemoryBlock> UniteWithNext(LinkedListNode<MemoryBlock> node)
+        private LinkedListNode<MemoryBlock> UniteWithNext(in LinkedListNode<MemoryBlock> node)
         {
             if (node.Next != null && node.Next.Value.State == BlockState.Empty)
             {
                 MemoryBlock newBlock = new(BlockState.Empty,
                     node.Value.Address, node.Value.Size + node.Next.Value.Size);
-                _blocks.AddBefore(node, newBlock);
+                var result = _blocks.AddBefore(node, newBlock);
                 _blocks.Remove(node.Next);
                 _blocks.Remove(node);
-                node = _blocks.Find(newBlock);
+                return result;
             }
             return node;
         }
 
-        private LinkedListNode<MemoryBlock> UniteWithPrevious(LinkedListNode<MemoryBlock> node)
+        private LinkedListNode<MemoryBlock> UniteWithPrevious(in LinkedListNode<MemoryBlock> node)
         {
             if (node.Previous != null && node.Previous.Value.State == BlockState.Empty)
             {
                 MemoryBlock newBlock = new(BlockState.Empty,
                     node.Previous.Value.Address, node.Value.Size + node.Previous.Value.Size);
-                _blocks.AddBefore(node.Previous, newBlock);
+                var result = _blocks.AddBefore(node.Previous, newBlock);
                 _blocks.Remove(node.Previous);
                 _blocks.Remove(node);
-                node = _blocks.Find(newBlock);
+                return result;
             }
             return node;
         }

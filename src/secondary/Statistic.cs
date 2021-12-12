@@ -4,15 +4,25 @@ namespace CourseWork
 {
     public readonly struct Statistic
     {
-        public ReadOnlyList<ProcessStatistic> ProcessesStatistic { get; }
+        public ReadOnlyList<ProcessStatistic> Processes { get; }
+
+        public ReadOnlyList<ProcessStatistic> RejectedProcesses { get; }
+
+        public ReadOnlyList<ProcessStatistic> TerminatedProcesses { get; }
+
         public ReadOnlyList<CPUStatistic> CPUStatistics { get; }
+
         public ReadOnlyList<MemoryBlock> MemoryBlocks { get; }
 
 
         public Statistic(IEnumerable<ProcessStatistic> processesStatistic, 
+            IEnumerable<ProcessStatistic> rejectedProcessesStatistic, 
+            IEnumerable<ProcessStatistic> terminatedProcesses, 
             IEnumerable<CPUStatistic> cpuStatistics, IEnumerable<MemoryBlock> memoryBlocks)
         {
-            ProcessesStatistic = new(processesStatistic);
+            Processes = new(processesStatistic);
+            RejectedProcesses = new(rejectedProcessesStatistic);
+            TerminatedProcesses = new(terminatedProcesses);
             CPUStatistics = new(cpuStatistics);
             MemoryBlocks = new(memoryBlocks);
         }

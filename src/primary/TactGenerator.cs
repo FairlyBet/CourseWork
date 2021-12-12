@@ -9,7 +9,6 @@ namespace CourseWork
         public int TickRate { get; set; }
 
 
-
         public TactGenerator(in int tickRate)
         {
             TickRate = tickRate;
@@ -19,6 +18,5 @@ namespace CourseWork
         {
             OnTick?.Invoke();
         }
-
     }
 }

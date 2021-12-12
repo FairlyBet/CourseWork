@@ -2,12 +2,12 @@ namespace CourseWork
 {
     public class CPU
     {
-        public Process CurrentProcess { get; set; }
+        public Process? CurrentProcess { get; set; }
 
 
         public void Tick()
         {
-            CurrentProcess?.Execute();
+            CurrentProcess?.Execute(); 
         }
     
         public override string ToString()

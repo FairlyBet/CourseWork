@@ -45,7 +45,7 @@
             UpdateStatistic();
         }
 
-        public void UpdateStatistic()
+        private void UpdateStatistic()
         {
             var cpus = new CPUStatistic[Config.CPUsCount];
             for (int i = 0; i < cpus.Length; i++)
@@ -53,8 +53,8 @@
                 cpus[i] = new(_hardware.CPUs[i]);
             }
             var memory = _hardware.Memory.Blocks;
-            var processes = _scheduler.ProvideStatistic();
-            _statistic = new(processes, cpus, memory);
+            var (processes, rejected, terminated) = _scheduler.ProvideStatistic();
+            _statistic = new(processes, rejected, terminated, cpus, memory);
         }
 
         public void RaiseNewProcess(Process process)
