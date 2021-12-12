@@ -12,6 +12,7 @@
         ResizeMode="NoResize" 
         BorderThickness="0,0,0,0" 
         WindowStyle="SingleBorderWindow">
+
     <Grid x:Name="MainGrid" 
           RenderTransformOrigin="0.5,0.5" 
           ScrollViewer.VerticalScrollBarVisibility="Disabled">
@@ -61,27 +62,33 @@
             VerticalContentAlignment="Center" 
             HorizontalContentAlignment="Center" 
             Margin="110,0,0,60" Content="Step" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Step_Click"/>
-        <ListView Grid.Column="1" 
-                  
+        <ListView x:Name="ProcessesList" Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="3"
-                  Margin="256,10,10,10">
+                  Margin="133,10,10,10" BorderThickness="0,0,0,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" Width="70"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" Width="25"/>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Path=Priority}" Width="50"/>
+                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding Path=State}" Width="70"/>
+                    <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Path=Size}" Width="50"/>
+                    <GridViewColumn Header="Burst Time" DisplayMemberBinding="{Binding Path=BurstTime}" Width="50"/>
+                    <GridViewColumn Header="Executing Time" DisplayMemberBinding="{Binding Path=ExecutingTime}" Width="50"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="box" 
+        <ListBox x:Name="CPUList" 
                  Grid.ColumnSpan="2" 
-                 HorizontalAlignment="Left" 
-                 Margin="10,10,0,0" 
-                 TextWrapping="Wrap" 
-                 Text="TextBox" 
-                 VerticalAlignment="Top" 
-                 Width="283" 
-                 Height="246" 
-                 Grid.RowSpan="2"/>
+                 Margin="10,10,256,184" 
+                 Grid.RowSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=State}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

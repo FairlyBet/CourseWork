@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CourseWork
@@ -28,7 +29,7 @@ namespace CourseWork
         }
     }
 
-    public readonly struct ProcessStatistic
+    public readonly struct ProcessStatistic : IEquatable<ProcessStatistic>
     {
         public uint Id { get; }
 
@@ -44,7 +45,7 @@ namespace CourseWork
 
         public uint BurstTime { get; }
 
-        public uint Size { get; }
+        public string Size { get; }
 
 
         public ProcessStatistic(Process process)
@@ -56,29 +57,44 @@ namespace CourseWork
             Performance = process.Performance;
             ExecutingTime = process.ExecutingTime;
             BurstTime = process.BurstTime;
-            Size = process.Size;
+            Size = (process.Size / 1_000_000).ToString() + " MB";
         }
 
         public static explicit operator ProcessStatistic(Process process)
         {
             return new(process);
         }
+
+        public bool Equals(ProcessStatistic other)
+        {
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ProcessStatistic && Equals((ProcessStatistic)obj);
+        }
     }
 
     public readonly struct CPUStatistic
     {
-        public ProcessStatistic? CurrentProcess { get; }
+        public string State { get; }
 
 
         public CPUStatistic(CPU cpu)
         {
             if (cpu.CurrentProcess == null)
             {
-                CurrentProcess = null;
+                State = "free";
             }
             else
             {
-                CurrentProcess = new(cpu.CurrentProcess);
+                State = "busy";
             }
         }
 

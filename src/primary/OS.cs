@@ -20,6 +20,7 @@
             }
             _hardware = new(new(cpus), new(Config.MemorySize));
             _scheduler = new(_hardware, _generator);
+            UpdateStatistic();
             SetupWorkflow();
         }
 
