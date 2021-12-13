@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseWork"
         mc:Ignorable="d"
-        Title="InfoWindow" Height="450" Width="800">
+        Title="InfoWindow" Height="450" Width="500">
     <Grid>
-        
+        <ListView x:Name="ProcessesList"
+                  Margin="0,0,0,0" 
+                  BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Background="#FFDADADA">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.205"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-1.176"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="70"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="25"/>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="50"/>
+                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding State}" Width="70"/>
+                    <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}" Width="50"/>
+                    <GridViewColumn Header="Burst Time" DisplayMemberBinding="{Binding BurstTime}" Width="50"/>
+                    <GridViewColumn Header="Executing Time" DisplayMemberBinding="{Binding ExecutingTime}" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

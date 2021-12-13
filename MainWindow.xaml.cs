@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CourseWork
@@ -8,11 +9,14 @@ namespace CourseWork
     {
         private readonly OS _os;
         private readonly ObservableCollection<ProcessStatistic> _processesSource;
+        private readonly ObservableCollection<ProcessStatistic> _rejected;
+        private readonly ObservableCollection<ProcessStatistic> _terminated;
         private readonly ObservableCollection<CPUStatistic> _CPUSource;
         private  ProcessWindow _creationWindow;
         private  InfoWindow _infoWindowTerminated;
         private  InfoWindow _infoWindowRejected;
         private bool _pause;
+
 
         public MainWindow()
         {
@@ -21,6 +25,8 @@ namespace CourseWork
             _pause = true;
             _processesSource = new();
             _CPUSource = new();
+            _terminated = new();
+            _rejected = new();
             ProcessesList.ItemsSource = _processesSource;
             CPUList.ItemsSource = _CPUSource;
         }
@@ -57,16 +63,18 @@ namespace CourseWork
 
         private void UpdateSources()
         {
-            _processesSource.Clear();
-            foreach (var item in _os.Statistic.Processes)
-            {
-                _processesSource.Add(item);
-            }
+            Fill(_os.Statistic.Processes, _processesSource);
+            Fill(_os.Statistic.RejectedProcesses, _rejected);
+            Fill(_os.Statistic.TerminatedProcesses, _terminated);
+            Fill(_os.Statistic.CPUStatistics, _CPUSource);
+        }
 
-            _CPUSource.Clear();
-            foreach (var item in _os.Statistic.CPUStatistics)
+        private static void Fill<T>(IEnumerable<T> source, ObservableCollection<T> target)
+        {
+            target.Clear();
+            foreach (var item in source)
             {
-                _CPUSource.Add(item);
+                target.Add(item);
             }
         }
 
@@ -84,14 +92,14 @@ namespace CourseWork
 
         private void ShowRejected_Click(object sender, RoutedEventArgs e)
         {
-            _infoWindowRejected = new();
+            _infoWindowRejected = new(_rejected);
             _infoWindowRejected.Owner = this;
             _infoWindowRejected.Show();
         }
 
         private void ShowTerminated_Click(object sender, RoutedEventArgs e)
         {
-            _infoWindowTerminated = new();
+            _infoWindowTerminated = new(_terminated);
             _infoWindowTerminated.Owner = this;
             _infoWindowTerminated.Show();
         }
