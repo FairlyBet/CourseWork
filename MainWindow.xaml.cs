@@ -9,8 +9,10 @@ namespace CourseWork
         private readonly OS _os;
         private readonly ObservableCollection<ProcessStatistic> _processesSource;
         private readonly ObservableCollection<CPUStatistic> _CPUSource;
+        private  ProcessWindow _creationWindow;
+        private  InfoWindow _infoWindowTerminated;
+        private  InfoWindow _infoWindowRejected;
         private bool _pause;
-
 
         public MainWindow()
         {
@@ -66,6 +68,32 @@ namespace CourseWork
             {
                 _CPUSource.Add(item);
             }
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            _creationWindow = new(_os);
+            _creationWindow.Owner = this;
+            _creationWindow.Show();
+        }
+
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+            _os.RaiseNewProcess(new(0));
+        }
+
+        private void ShowRejected_Click(object sender, RoutedEventArgs e)
+        {
+            _infoWindowRejected = new();
+            _infoWindowRejected.Owner = this;
+            _infoWindowRejected.Show();
+        }
+
+        private void ShowTerminated_Click(object sender, RoutedEventArgs e)
+        {
+            _infoWindowTerminated = new();
+            _infoWindowTerminated.Owner = this;
+            _infoWindowTerminated.Show();
         }
     }
 }

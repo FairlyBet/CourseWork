@@ -83,24 +83,20 @@ namespace CourseWork
 
     public readonly struct CPUStatistic
     {
-        public string State { get; }
+        public readonly string State { get; }
 
 
-        public CPUStatistic(CPU cpu)
+        public CPUStatistic(CPU cpu, int id)
         {
+            State = $"CPU {id}: ";
             if (cpu.CurrentProcess == null)
             {
-                State = "free";
+                State += "free";
             }
             else
             {
-                State = "busy";
+                State += "busy";
             }
-        }
-
-        public static explicit operator CPUStatistic(CPU cpu)
-        {
-            return new(cpu);
         }
     }
 }

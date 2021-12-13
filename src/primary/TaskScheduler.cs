@@ -32,7 +32,7 @@ namespace CourseWork
             foreach (var item in newProcesses)
             {
                 Process process = new(_idCount++, item.Name, item.Priority,
-                    item.State, item.Performance, item.Size);
+                    item.Performance, item.Size);
                 _newProcesses.Add(process);
             }
         }
@@ -112,6 +112,7 @@ namespace CourseWork
             if (_tacts == Config.OrderRate)
             {
                 _processes.Sort(Process.Comparer);
+                _processes.Reverse();
             }
             _tacts %= Config.OrderRate;
         }

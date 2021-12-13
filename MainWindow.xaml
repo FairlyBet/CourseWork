@@ -26,6 +26,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Menu x:Name="Menus" Grid.ColumnSpan="3" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Height="20">
+            <Button x:Name="ShowRejected" Height="15" Width="60" VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0,0,0,0" Padding="0,0,0,0" Content="Show Rejected" FontSize="9" Margin="3,0,0,0" Click="ShowRejected_Click"/>
+            <Button x:Name="ShowTerminated" Height="15" Width="69" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0,0,0,0" Padding="0,0,0,0" Content="Show Terminated" FontSize="9" Click="ShowTerminated_Click"/>
+        </Menu>
         <Button x:Name="AutoRun" 
             Grid.Row="2"
             VerticalAlignment="Bottom" 
@@ -65,30 +69,53 @@
         <ListView x:Name="ProcessesList" Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="3"
-                  Margin="133,10,10,10" BorderThickness="0,0,0,0">
+                  Margin="133,25,10,10" BorderThickness="0,0,0,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" Width="70"/>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" Width="25"/>
-                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Path=Priority}" Width="50"/>
-                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding Path=State}" Width="70"/>
-                    <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Path=Size}" Width="50"/>
-                    <GridViewColumn Header="Burst Time" DisplayMemberBinding="{Binding Path=BurstTime}" Width="50"/>
-                    <GridViewColumn Header="Executing Time" DisplayMemberBinding="{Binding Path=ExecutingTime}" Width="50"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="70"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="25"/>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}" Width="50"/>
+                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding State}" Width="70"/>
+                    <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}" Width="50"/>
+                    <GridViewColumn Header="Burst Time" DisplayMemberBinding="{Binding BurstTime}" Width="50"/>
+                    <GridViewColumn Header="Executing Time" DisplayMemberBinding="{Binding ExecutingTime}" Width="50"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <ListBox x:Name="CPUList" 
-                 Grid.ColumnSpan="2" 
-                 Margin="10,10,256,184" 
-                 Grid.RowSpan="2">
+                 Margin="10,85,112,168" Background="#FFECECEC" BorderThickness="0,0,0,0" Grid.RowSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Path=State}"/>
+                        <TextBlock Text="{Binding State}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <TextBlock HorizontalAlignment="Left" Margin="10,64,0,0" TextWrapping="Wrap" Text="CPU info:" VerticalAlignment="Top" RenderTransformOrigin="1.214,2.857"/>
+        <Button x:Name="GenerateButton" 
+            Grid.Row="2" 
+            FontStyle="Normal" 
+            FontStretch="Normal" 
+            FontWeight="Medium" 
+            BorderThickness="0,0,0,0" 
+            Height="40" 
+            Width="90" 
+            RenderTransformOrigin="0.5,0.5" 
+            VerticalContentAlignment="Center" 
+            HorizontalContentAlignment="Center" 
+            Margin="10,0,0,60" Content="Generate" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="GenerateButton_Click"/>
+        <Button x:Name="CreateButton" 
+            Grid.Row="2" 
+            FontStyle="Normal" 
+            FontStretch="Normal" 
+            FontWeight="Medium" 
+            BorderThickness="0,0,0,0" 
+            Height="40" 
+            Width="90" 
+            RenderTransformOrigin="0.5,0.5" 
+            VerticalContentAlignment="Center" 
+            HorizontalContentAlignment="Center" 
+            Margin="10,0,0,110" Content="New" FlowDirection="LeftToRight" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="CreateButton_Click"/>
     </Grid>
 </Window>
