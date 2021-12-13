@@ -44,13 +44,13 @@ namespace CourseWork
             Location = null;
         }
 
-        public Process(uint id, string name, byte priority, ProcessState state,
+        public Process(uint id, string name, byte priority,
             Performance performance, uint size)
         {
             Id = id;
             Name = name;
             Priority = (byte)(priority % Config.MaxPriority);
-            State = state;
+            State = ProcessState.Ready;
             Performance = performance;
             Size = size % Config.MemorySize + (uint)(size == 0 ? 1 : 0);
             Random random = new(s_seed++);
@@ -99,7 +99,6 @@ namespace CourseWork
         {
             return $"[{Name}, {Id}, {Size / 1_000_000}MB, {State}, {BurstTime}/{ExecutingTime}]";
         }
-
 
 
         private class PriorityComparer : IComparer<Process>

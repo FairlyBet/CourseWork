@@ -20,6 +20,7 @@
             }
             _hardware = new(new(cpus), new(Config.MemorySize));
             _scheduler = new(_hardware, _generator);
+            UpdateStatistic();
             SetupWorkflow();
         }
 
@@ -35,7 +36,7 @@
 
         private void RaiseSystemProcess()
         {
-            Process systemProcess = new(0, "system", 15, ProcessState.Ready, Performance.Medium, 1_000_000);
+            Process systemProcess = new(0, "system", 15, Performance.Medium, 1_000_000);
             _scheduler.AddNewProcesses(new Process[] { systemProcess });
         }
 
@@ -50,7 +51,7 @@
             var cpus = new CPUStatistic[Config.CPUsCount];
             for (int i = 0; i < cpus.Length; i++)
             {
-                cpus[i] = new(_hardware.CPUs[i]);
+                cpus[i] = new(_hardware.CPUs[i], i);
             }
             var memory = _hardware.Memory.Blocks;
             var (processes, rejected, terminated) = _scheduler.ProvideStatistic();

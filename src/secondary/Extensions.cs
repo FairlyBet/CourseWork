@@ -16,5 +16,18 @@ namespace CourseWork
                 action.Invoke(item);
             }
         }
+
+        public static Performance ReverseToString(this Performance performance, in string value)
+        {
+            
+            var val = value.ToLowerInvariant().Replace("performance", "").Replace(" ", "");
+            return val switch
+            {
+                "low" => Performance.Low,
+                "medium" => Performance.Medium,
+                "high" => Performance.High,
+                _ => throw new Exception("Fix \"reverse to string\""),
+            };
+        }
     }
 }
