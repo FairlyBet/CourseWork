@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+#pragma warning disable CS8618
+#pragma warning disable CS8625
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 
@@ -24,7 +29,7 @@ namespace CourseWork
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!char.IsDigit(Size.Text, 0) || Name.Text == string.Empty)
+            if (!char.IsDigit(Size.Text, 0) || ProcessName.Text == string.Empty)
             {
                 MessageBox.Show("Invalid data");
                 return;
@@ -32,7 +37,7 @@ namespace CourseWork
             var priority = byte.Parse((Priorities.SelectedItem as TextBlock).Text);
             var performance = Performance.Medium.ReverseToString(((TextBlock)PerformanceBox.SelectedItem).Text);
             var size = uint.Parse(Size.Text);
-            Process process = new(0, Name.Text, priority, performance, size);
+            Process process = new(0, ProcessName.Text, priority, performance, size);
             _os.RaiseNewProcess(process);
             Close();
         }

@@ -19,7 +19,6 @@ namespace CourseWork
 
         public static Performance ReverseToString(this Performance performance, in string value)
         {
-            
             var val = value.ToLowerInvariant().Replace("performance", "").Replace(" ", "");
             return val switch
             {

@@ -1,4 +1,10 @@
-﻿using System.Windows;
+﻿#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+#pragma warning disable CS8618
+#pragma warning disable CS8625
+#pragma warning disable CS8765
+using System.Windows;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,9 +18,9 @@ namespace CourseWork
         private readonly ObservableCollection<ProcessStatistic> _rejected;
         private readonly ObservableCollection<ProcessStatistic> _terminated;
         private readonly ObservableCollection<CPUStatistic> _CPUSource;
-        private  ProcessWindow _creationWindow;
-        private  InfoWindow _infoWindowTerminated;
-        private  InfoWindow _infoWindowRejected;
+        private ProcessWindow _creationWindow;
+        private InfoWindow _infoWindowTerminated;
+        private InfoWindow _infoWindowRejected;
         private bool _pause;
 
 
@@ -45,7 +51,7 @@ namespace CourseWork
                 await Task.Delay(Config.TickRate);
             }
         }
-       
+
         private void ManualRun_Click(object sender, RoutedEventArgs e)
         {
             _pause = true;

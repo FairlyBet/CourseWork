@@ -1,7 +1,12 @@
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+#pragma warning disable CS8618
+#pragma warning disable CS8625
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CourseWork
 {

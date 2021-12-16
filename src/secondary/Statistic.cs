@@ -1,3 +1,9 @@
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+#pragma warning disable CS8618
+#pragma warning disable CS8625
+#pragma warning disable CS8765
 using System;
 using System.Collections.Generic;
 
@@ -16,9 +22,9 @@ namespace CourseWork
         public ReadOnlyList<MemoryBlock> MemoryBlocks { get; }
 
 
-        public Statistic(IEnumerable<ProcessStatistic> processesStatistic, 
-            IEnumerable<ProcessStatistic> rejectedProcessesStatistic, 
-            IEnumerable<ProcessStatistic> terminatedProcesses, 
+        public Statistic(IEnumerable<ProcessStatistic> processesStatistic,
+            IEnumerable<ProcessStatistic> rejectedProcessesStatistic,
+            IEnumerable<ProcessStatistic> terminatedProcesses,
             IEnumerable<CPUStatistic> cpuStatistics, IEnumerable<MemoryBlock> memoryBlocks)
         {
             Processes = new(processesStatistic);

@@ -1,4 +1,9 @@
-﻿using System;
+﻿#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8604
+#pragma warning disable CS8618
+#pragma warning disable CS8625
+using System;
 using System.Collections.Generic;
 
 namespace CourseWork
@@ -7,7 +12,7 @@ namespace CourseWork
     {
         public static readonly IComparer<Process> Comparer = new PriorityComparer();
         private static int s_seed = 0;
-        
+
         public uint Id { get; }
 
         public string Name { get; }
