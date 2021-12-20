@@ -111,7 +111,7 @@ namespace CourseWork
             _tacts++;
             if (_tacts == Config.OrderRate)
             {
-                _processes.Sort(Process.Comparer);
+                _processes.Sort(Process.ByPriority);
                 _processes.Reverse();
             }
             _tacts %= Config.OrderRate;

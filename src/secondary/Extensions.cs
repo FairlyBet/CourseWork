@@ -19,13 +19,13 @@ namespace CourseWork
 
         public static Performance ReverseToString(this Performance performance, in string value)
         {
-            var val = value.ToLowerInvariant().Replace("performance", "").Replace(" ", "");
+            var val = value.Trim().ToLowerInvariant().Replace("performance", string.Empty).Replace(" ", string.Empty);
             return val switch
             {
                 "low" => Performance.Low,
                 "medium" => Performance.Medium,
                 "high" => Performance.High,
-                _ => throw new Exception("Fix \"reverse to string\""),
+                _ => throw new ArgumentException("Invalid value"),
             };
         }
     }
